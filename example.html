@@ -1,0 +1,385 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;"><script src="https://puc.poecdn.net/standard.c8d3df4d67dddca2ccac.js"></script>
+    <meta charset="utf-8">
+    <title>Poe</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="https://puc.poecdn.net/tw.b9024aecac666455e183.js"></script><script src="https://puc.poecdn.net/deps.ac7e4de820f1e47e84a2.js"></script><script src="https://puc.poecdn.net/exports.b0f0f482cdeb5302b0b9.js"></script><script src="https://puc.poecdn.net/renderer.6065bf6c6271ccf44fe1.js"></script><script>Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _react = require('react'); var _react2 = _interopRequireDefault(_react);
+
+
+
+var _recharts = require('recharts');
+
+
+
+
+var _lucidereact = require('lucide-react');
+var _framermotion = require('framer-motion');
+
+const MainApp = () => {
+  const [currentView, setCurrentView] = _react.useState.call(void 0, 'dashboard');
+  const [isDark, setIsDark] = _react.useState.call(void 0, false);
+  
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+  };
+
+  // Shared data that might be used across components
+  const mockPerformanceData = [
+    { day: 'Mon', score: 65 },
+    { day: 'Tue', score: 72 },
+    { day: 'Wed', score: 68 },
+    { day: 'Thu', score: 75 },
+    { day: 'Fri', score: 82 },
+    { day: 'Sat', score: 78 },
+    { day: 'Sun', score: 85 },
+  ];
+
+  const subjectProgress = [
+    { subject: 'Pathology', completed: 75 },
+    { subject: 'Pharmacology', completed: 60 },
+    { subject: 'Physiology', completed: 85 },
+    { subject: 'Anatomy', completed: 45 },
+  ];
+
+  // Profile specific data
+  const [profileData, setProfileData] = _react.useState.call(void 0, {
+    name: 'Dr. Abubakr Inogomov',
+    email: 'abu@usmle.uz',
+    phone: '+998 91 698 08 90',
+    specialization: 'Internal Medicine',
+    studyCredits: 250000,
+    memberSince: 'January 2024',
+    targetExamDate: '2025-06-15',
+    bio: 'Final year medical student preparing for USMLE Step 1. Passionate about neurology and research.',
+  });
+
+  const [isEditing, setIsEditing] = _react.useState.call(void 0, false);
+
+  const performanceData = [
+    { name: 'Correct', value: 75, color: '#4CAF50' },
+    { name: 'Incorrect', value: 25, color: '#FF5252' },
+  ];
+
+  const recentActivities = [
+    { date: '2025-01-15', activity: 'Completed Cardiology Module', score: '85%' },
+    { date: '2025-01-14', activity: 'Practice Test #12', score: '78%' },
+    { date: '2025-01-13', activity: 'Reviewed Pharmacology', score: '92%' },
+    { date: '2025-01-12', activity: 'Flash Cards Session', score: '88%' },
+  ];
+
+  const achievements = [
+    { title: 'Quick Learner', description: 'Completed 100 questions in one day', icon: _lucidereact.Brain },
+    { title: 'Perfect Score', description: 'Scored 100% in Anatomy module', icon: _lucidereact.Award },
+    { title: 'Consistent', description: '30-day study streak', icon: _lucidereact.CheckCircle },
+  ];
+
+  // Sidebar Component
+  const Sidebar = () => (
+    _react2.default.createElement('div', { className: `fixed left-0 top-0 h-full w-20 ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-lg`,}
+      , _react2.default.createElement('div', { className: "flex flex-col items-center py-8 space-y-8"    ,}
+        , _react2.default.createElement(_framermotion.motion.button, {
+          whileHover: { scale: 1.1 },
+          onClick: toggleTheme,
+          className: "p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"   ,}
+
+          , isDark ? _react2.default.createElement(_lucidereact.Sun, { size: 24,} ) : _react2.default.createElement(_lucidereact.Moon, { size: 24,} )
+        )
+        , _react2.default.createElement(_framermotion.motion.button, {
+          whileHover: { scale: 1.1 },
+          onClick: () => setCurrentView('profile'),
+          className: `p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 ${
+            currentView === 'profile' ? 'bg-gray-200 dark:bg-gray-700' : ''
+          }`,}
+
+          , _react2.default.createElement(_lucidereact.User, { size: 24,} )
+        )
+        , _react2.default.createElement(_framermotion.motion.button, {
+          whileHover: { scale: 1.1 },
+          onClick: () => setCurrentView('dashboard'),
+          className: `p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 ${
+            currentView === 'dashboard' ? 'bg-gray-200 dark:bg-gray-700' : ''
+          }`,}
+
+          , _react2.default.createElement(_lucidereact.Book, { size: 24,} )
+        )
+        , _react2.default.createElement(_framermotion.motion.button, {
+          whileHover: { scale: 1.1 },
+          className: "p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"   ,}
+
+          , _react2.default.createElement(_lucidereact.MessageSquare, { size: 24,} )
+        )
+        , _react2.default.createElement(_framermotion.motion.button, {
+          whileHover: { scale: 1.1 },
+          className: "p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"   ,}
+
+          , _react2.default.createElement(_lucidereact.Calendar, { size: 24,} )
+        )
+        , _react2.default.createElement(_framermotion.motion.button, {
+          whileHover: { scale: 1.1 },
+          className: "p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"   ,}
+
+          , _react2.default.createElement(_lucidereact.Settings, { size: 24,} )
+        )
+      )
+    )
+  );
+
+  // Dashboard View Component
+  const DashboardView = () => (
+    _react2.default.createElement('div', { className: "ml-20 p-8" ,}
+      /* Header */
+      , _react2.default.createElement('div', { className: "flex justify-between items-center mb-8"   ,}
+        , _react2.default.createElement('div', null
+          , _react2.default.createElement('h1', { className: "text-2xl font-bold" ,}, "USMLE Step 1 Dashboard"   )
+          , _react2.default.createElement('p', { className: `${isDark ? 'text-gray-400' : 'text-gray-600'}`,}, "Welcome back, "
+              , profileData.name, "!"
+          )
+        )
+        , _react2.default.createElement('div', { className: "flex items-center space-x-4"  ,}
+          , _react2.default.createElement('div', { className: `px-4 py-2 rounded-lg ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-md`,}
+            , _react2.default.createElement('div', { className: "flex items-center space-x-2"  ,}
+              , _react2.default.createElement(_lucidereact.DollarSign, { size: 20,} )
+              , _react2.default.createElement('span', null, "Credits: " , profileData.studyCredits)
+            )
+          )
+        )
+      )
+
+      /* Stats Grid */
+      , _react2.default.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"     ,}
+        /* ... (Stats Grid components from original Dashboard) ... */
+        , _react2.default.createElement(_framermotion.motion.div, {
+          whileHover: { scale: 1.02 },
+          className: `p-6 rounded-xl shadow-md ${isDark ? 'bg-gray-800' : 'bg-white'}`,}
+
+          , _react2.default.createElement('div', { className: "flex items-center space-x-4"  ,}
+            , _react2.default.createElement(_lucidereact.Brain, { className: "text-blue-500", size: 24,} )
+            , _react2.default.createElement('div', null
+              , _react2.default.createElement('h3', { className: "text-sm opacity-70" ,}, "Questions Completed" )
+              , _react2.default.createElement('p', { className: "text-2xl font-bold" ,}, "156/300")
+            )
+          )
+        )
+
+        , _react2.default.createElement(_framermotion.motion.div, {
+          whileHover: { scale: 1.02 },
+          className: `p-6 rounded-xl shadow-md ${isDark ? 'bg-gray-800' : 'bg-white'}`,}
+
+          , _react2.default.createElement('div', { className: "flex items-center space-x-4"  ,}
+            , _react2.default.createElement(_lucidereact.Target, { className: "text-green-500", size: 24,} )
+            , _react2.default.createElement('div', null
+              , _react2.default.createElement('h3', { className: "text-sm opacity-70" ,}, "Average Score" )
+              , _react2.default.createElement('p', { className: "text-2xl font-bold" ,}, "75%")
+            )
+          )
+        )
+
+        , _react2.default.createElement(_framermotion.motion.div, {
+          whileHover: { scale: 1.02 },
+          className: `p-6 rounded-xl shadow-md ${isDark ? 'bg-gray-800' : 'bg-white'}`,}
+
+          , _react2.default.createElement('div', { className: "flex items-center space-x-4"  ,}
+            , _react2.default.createElement(_lucidereact.Clock, { className: "text-purple-500", size: 24,} )
+            , _react2.default.createElement('div', null
+              , _react2.default.createElement('h3', { className: "text-sm opacity-70" ,}, "Study Time" )
+              , _react2.default.createElement('p', { className: "text-2xl font-bold" ,}, "127h")
+            )
+          )
+        )
+
+        , _react2.default.createElement(_framermotion.motion.div, {
+          whileHover: { scale: 1.02 },
+          className: `p-6 rounded-xl shadow-md ${isDark ? 'bg-gray-800' : 'bg-white'}`,}
+
+          , _react2.default.createElement('div', { className: "flex items-center space-x-4"  ,}
+            , _react2.default.createElement(_lucidereact.Book, { className: "text-orange-500", size: 24,} )
+            , _react2.default.createElement('div', null
+              , _react2.default.createElement('h3', { className: "text-sm opacity-70" ,}, "Weak Areas" )
+              , _react2.default.createElement('p', { className: "text-2xl font-bold" ,}, "3")
+            )
+          )
+        )
+      )
+
+      /* Charts Section */
+      , _react2.default.createElement('div', { className: "grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8"    ,}
+        , _react2.default.createElement(_framermotion.motion.div, {
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          className: `p-6 rounded-xl shadow-md ${isDark ? 'bg-gray-800' : 'bg-white'}`,}
+
+          , _react2.default.createElement('h3', { className: "text-xl font-bold mb-4"  ,}, "Performance Trend" )
+          , _react2.default.createElement('div', { className: "h-64",}
+            , _react2.default.createElement(_recharts.ResponsiveContainer, { width: "100%", height: "100%",}
+              , _react2.default.createElement(_recharts.LineChart, { data: mockPerformanceData,}
+                , _react2.default.createElement(_recharts.CartesianGrid, { strokeDasharray: "3 3" ,} )
+                , _react2.default.createElement(_recharts.XAxis, { dataKey: "day",} )
+                , _react2.default.createElement(_recharts.YAxis, null )
+                , _react2.default.createElement(_recharts.Tooltip, null )
+                , _react2.default.createElement(_recharts.Line, { type: "monotone", dataKey: "score", stroke: "#8884d8", strokeWidth: 2,} )
+              )
+            )
+          )
+        )
+
+        , _react2.default.createElement(_framermotion.motion.div, {
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          className: `p-6 rounded-xl shadow-md ${isDark ? 'bg-gray-800' : 'bg-white'}`,}
+
+          , _react2.default.createElement('h3', { className: "text-xl font-bold mb-4"  ,}, "Subject Progress" )
+          , _react2.default.createElement('div', { className: "space-y-4",}
+            , subjectProgress.map((subject) => (
+              _react2.default.createElement('div', { key: subject.subject,}
+                , _react2.default.createElement('div', { className: "flex justify-between mb-1"  ,}
+                  , _react2.default.createElement('span', null, subject.subject)
+                  , _react2.default.createElement('span', null, subject.completed, "%")
+                )
+                , _react2.default.createElement('div', { className: "w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700"    ,}
+                  , _react2.default.createElement('div', {
+                    className: "bg-blue-600 h-2.5 rounded-full"  ,
+                    style: { width: `${subject.completed}%` },}
+)
+                )
+              )
+            ))
+          )
+        )
+      )
+
+      /* Quick Actions */
+      , _react2.default.createElement('div', { className: "grid grid-cols-1 md:grid-cols-3 gap-6"   ,}
+        , _react2.default.createElement(_framermotion.motion.button, {
+          whileHover: { scale: 1.02 },
+          className: `p-6 rounded-xl shadow-md ${isDark ? 'bg-gray-800' : 'bg-white'} text-left`,}
+
+          , _react2.default.createElement('h3', { className: "text-lg font-bold mb-2"  ,}, "Start Test Simulation"  )
+          , _react2.default.createElement('p', { className: `${isDark ? 'text-gray-400' : 'text-gray-600'}`,}, "40 questions • 1 hour"    )
+        )
+
+        , _react2.default.createElement(_framermotion.motion.button, {
+          whileHover: { scale: 1.02 },
+          className: `p-6 rounded-xl shadow-md ${isDark ? 'bg-gray-800' : 'bg-white'} text-left`,}
+
+          , _react2.default.createElement('h3', { className: "text-lg font-bold mb-2"  ,}, "Review Mistakes" )
+          , _react2.default.createElement('p', { className: `${isDark ? 'text-gray-400' : 'text-gray-600'}`,}, "15 questions to review"   )
+        )
+
+        , _react2.default.createElement(_framermotion.motion.button, {
+          whileHover: { scale: 1.02 },
+          className: `p-6 rounded-xl shadow-md ${isDark ? 'bg-gray-800' : 'bg-white'} text-left`,}
+
+          , _react2.default.createElement('h3', { className: "text-lg font-bold mb-2"  ,}, "Schedule Tutorial" )
+          , _react2.default.createElement('p', { className: `${isDark ? 'text-gray-400' : 'text-gray-600'}`,}, "Available mentors: 5"  )
+        )
+      )
+    )
+  );
+
+  // Profile View Component
+  const ProfileView = () => (
+    _react2.default.createElement('div', { className: "ml-20 p-8" ,}
+      /* Profile content from the Profile component */
+      , _react2.default.createElement(_framermotion.motion.div, { 
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        className: "max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-8 mb-8"      ,}
+
+        , _react2.default.createElement('div', { className: "flex flex-col md:flex-row items-start md:items-center gap-8"     ,}
+          , _react2.default.createElement('div', { className: "relative",}
+            , _react2.default.createElement('div', { className: "w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center"      ,}
+              , _react2.default.createElement(_lucidereact.User, { size: 64, className: "text-gray-400",} )
+            )
+            , _react2.default.createElement('button', { className: "absolute bottom-0 right-0 p-2 bg-blue-500 rounded-full text-white"      ,}
+              , _react2.default.createElement(_lucidereact.Camera, { size: 20,} )
+            )
+          )
+
+          , _react2.default.createElement('div', { className: "flex-1",}
+            /* Profile information */
+            , _react2.default.createElement('div', { className: "flex justify-between items-start"  ,}
+              , _react2.default.createElement('div', null
+                , _react2.default.createElement('h1', { className: "text-3xl font-bold mb-2"  ,}, profileData.name)
+                , _react2.default.createElement('p', { className: "text-gray-600 mb-2" ,}, profileData.specialization)
+                , _react2.default.createElement('div', { className: "flex items-center gap-4 text-sm text-gray-500"    ,}
+                  , _react2.default.createElement('span', { className: "flex items-center gap-1"  ,}
+                    , _react2.default.createElement(_lucidereact.Mail, { size: 16,} )
+                    , profileData.email
+                  )
+                  , _react2.default.createElement('span', { className: "flex items-center gap-1"  ,}
+                    , _react2.default.createElement(_lucidereact.Phone, { size: 16,} )
+                    , profileData.phone
+                  )
+                )
+              )
+              , _react2.default.createElement(_framermotion.motion.button, {
+                whileHover: { scale: 1.05 },
+                onClick: () => setIsEditing(!isEditing),
+                className: `px-4 py-2 rounded-lg flex items-center gap-2 ${
+                  isEditing ? 'bg-green-500' : 'bg-blue-500'
+                } text-white`,}
+
+                , isEditing ? _react2.default.createElement(_lucidereact.Save, { size: 20,} ) : _react2.default.createElement(_lucidereact.Edit2, { size: 20,} )
+                , isEditing ? 'Save Changes' : 'Edit Profile'
+              )
+            )
+          )
+        )
+      )
+
+      /* Stats Grid */
+      , _react2.default.createElement('div', { className: "max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"       ,}
+        /* ... (Profile stats components) ... */
+        /* Add your profile stats here */
+      )
+
+      /* Activity and Progress Section */
+      , _react2.default.createElement('div', { className: "max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8"      ,}
+        /* ... (Profile activity components) ... */
+        /* Add your profile activity components here */
+      )
+
+      /* Achievements Section */
+      , _react2.default.createElement(_framermotion.motion.div, { 
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        className: "max-w-6xl mx-auto mt-8"  ,}
+
+        , _react2.default.createElement('h2', { className: "text-xl font-bold mb-6"  ,}, "Achievements")
+        , _react2.default.createElement('div', { className: "grid grid-cols-1 md:grid-cols-3 gap-6"   ,}
+          , achievements.map((achievement, index) => (
+            _react2.default.createElement(_framermotion.motion.div, {
+              key: index,
+              whileHover: { scale: 1.02 },
+              className: "bg-white p-6 rounded-xl shadow-md"   ,}
+
+              , _react2.default.createElement('div', { className: "flex items-center gap-4"  ,}
+                , _react2.default.createElement('div', { className: "p-3 bg-blue-100 rounded-lg"  ,}
+                  , _react2.default.createElement(achievement.icon, { className: "text-blue-500", size: 24,} )
+                )
+                , _react2.default.createElement('div', null
+                  , _react2.default.createElement('h3', { className: "font-bold",}, achievement.title)
+                  , _react2.default.createElement('p', { className: "text-sm text-gray-600" ,}, achievement.description)
+                )
+              )
+            )
+          ))
+        )
+      )
+    )
+  );
+
+  return (
+    _react2.default.createElement('div', { className: `min-h-screen ${isDark ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-800'}`,}
+      , _react2.default.createElement(Sidebar, null )
+      , currentView === 'dashboard' ? _react2.default.createElement(DashboardView, null ) : _react2.default.createElement(ProfileView, null )
+    )
+  );
+};
+
+exports. default = MainApp;
+</script></head>
+  <body>
+  
+
+<div id="preview-app"></div></body></html>
